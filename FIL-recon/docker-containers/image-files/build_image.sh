@@ -1,17 +1,17 @@
 #!/bin/bash
 # Build a FIL physics docker container image
 
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
-  exit
-fi
+#if [ "$EUID" -ne 0 ]
+#  then echo "Please run as root"
+#  exit
+#fi
 
 # Stop on error
 set -e
 
 # Settings for deployment image
 IMAGE_FORK=fil-physics
-IMAGE_VERSION=V16
+IMAGE_VERSION=V17
 
 IMAGE_NAME=${IMAGE_FORK}:${IMAGE_VERSION}
 BASE_NAME=${IMAGE_NAME}-base

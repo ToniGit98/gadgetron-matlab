@@ -5,13 +5,13 @@ set -e
 
 # Settings for deployment container
 IMAGE_FORK=fil-physics				# Docker image from which the container
-IMAGE_VERSION=V16				# will be created
-CONTAINER_SUFFIX=0_public_rc1				# container version
+IMAGE_VERSION=V17				# will be created
+CONTAINER_SUFFIX=0_public_rc1			# container version
 
 # Settings for Matlab
-GAD_MAT_FORK=baskadym 			# GitHub fork (e.g. fil-physics or your GitHub username)
-GAD_MAT_VERSION=cbcffff			# Commit of gadgetron_matlab_local
-MATLAB_VERSION=R2022b				# Matlab application version
+GAD_MAT_FORK=ToniGit98 			# GitHub fork (e.g. fil-physics or your GitHub username)
+GAD_MAT_VERSION=fe501d0			# Commit of gadgetron_matlab_local
+MATLAB_VERSION=R2024b			# Matlab application version
 
 IMAGE_NAME=${IMAGE_FORK}:${IMAGE_VERSION}
 CONTAINER_NAME=${IMAGE_FORK}c-${IMAGE_VERSION}.${CONTAINER_SUFFIX}
@@ -31,19 +31,19 @@ sudo docker create --name=${CONTAINER_NAME} --net=host \
 
 
 # Test container works
-sudo docker start ${CONTAINER_NAME}
+docker start ${CONTAINER_NAME}
 # Once manifest is re-instated uncomment the following
 # sudo docker exec -it fil_physicsc_${cV} cat /opt/manifest.json
 
 # Set up container
-sudo docker cp setup_container.sh ${CONTAINER_NAME}:/root
-sudo docker exec -it ${CONTAINER_NAME} /root/setup_container.sh ${GAD_MAT_FORK} ${GAD_MAT_VERSION} ${MATLAB_VERSION}
+docker cp setup_container.sh ${CONTAINER_NAME}:/root
+docker exec -it ${CONTAINER_NAME} /root/setup_container.sh ${GAD_MAT_FORK} ${GAD_MAT_VERSION} ${MATLAB_VERSION}
 
 # Check X and matlab are working and javaclasspath has gadgetron directory
 # N.B. bash -i to set X authority from .bashrc
 # If X is not working will see warnings from matlab
-sudo docker exec -it ${CONTAINER_NAME} bash -ic "matlab -batch javaclasspath\(\'-static\'\)"
+docker exec -it ${CONTAINER_NAME} bash -ic "matlab -batch javaclasspath\(\'-static\'\)"
 
 # Show last created container (should be this one)
-sudo docker ps -l
+docker ps -l
 
