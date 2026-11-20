@@ -63,12 +63,6 @@ PPIparams   = gadgetron.FIL.utils.get_PPI_params(header);
         % AB - Remove partition (slab) oversampling and phase oversampling in image domain.
         % data.data is [1, RO, PE1, PE2, echoes, sets]: PE1 = dim 3, PE2 = dim 4.
         % (Upstream cropped dim 3 for the slab, i.e. phase-encode instead of partitions.)
-        % reconZ = PPIparams.reconMatSize.z;
-        % if reconZ < PE2
-        %     zStart = floor((PE2 - reconZ) / 2) + 1;
-        %     zEnd = zStart + reconZ - 1;
-        %     data.data = data.data(:, :, zStart:zEnd, :, :, :);
-        % end
         
         reconZ = PPIparams.reconMatSize.z;
         if reconZ < PE2
